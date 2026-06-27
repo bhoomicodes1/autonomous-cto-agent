@@ -16,6 +16,11 @@ class Settings(BaseSettings):
     gemini_api_key: str
     gemini_model: str = "gemini-2.5-flash"
 
+    # External URLs (Production)
+    database_url: str | None = None
+    qdrant_url: str | None = None
+    redis_url: str | None = None
+    
     # PostgreSQL
     postgres_host: str = "postgres"
     postgres_port: int = 5432
@@ -26,7 +31,10 @@ class Settings(BaseSettings):
     github_token: str | None = None
     
     @property
-    def database_url(self):
+    def database_url_resolved(self):
+        if self.database_url:
+            return self.database_url
+
         return (
             f"postgresql+asyncpg://{self.postgres_user}:"
             f"{self.postgres_password}@"

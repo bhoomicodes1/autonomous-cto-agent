@@ -11,7 +11,7 @@ settings = get_settings()
 
 # Create Async SQLAlchemy Engine
 engine = create_async_engine(
-    settings.database_url,
+    settings.database_url_resolved,
     echo=True,
 )
 

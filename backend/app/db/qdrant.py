@@ -12,9 +12,17 @@ async def init_qdrant(settings: Settings):
     """
     global _client
 
-    _client = AsyncQdrantClient(
-        host=settings.qdrant_host,
-        port=settings.qdrant_port,
+    if settings.qdrant_url:
+
+        _client = AsyncQdrantClient(
+        url=settings.qdrant_url,
+    )
+
+    else:
+
+        _client = AsyncQdrantClient(
+            host=settings.qdrant_host,
+            port=settings.qdrant_port,
     )
 
     collections = await _client.get_collections()
