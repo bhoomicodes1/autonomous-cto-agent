@@ -8,28 +8,39 @@ _client: AsyncQdrantClient | None = None
 
 async def init_qdrant(settings: Settings):
     """
-    Initialize Qdrant client and create collection if needed.
+    Initialize Qdrant client.
+    Works for both:
+    - Local Docker
+    - Qdrant Cloud
     """
     global _client
 
+    # ----------------------------
+    # Qdrant Cloud
+    # ----------------------------
     if settings.qdrant_url:
 
         _client = AsyncQdrantClient(
-        url=settings.qdrant_url,
-    )
+            url=settings.qdrant_url,
+            api_key=settings.qdrant_api_key,
+        )
 
+    # ----------------------------
+    # Local Docker
+    # ----------------------------
     else:
 
         _client = AsyncQdrantClient(
             host=settings.qdrant_host,
             port=settings.qdrant_port,
-    )
+        )
 
     collections = await _client.get_collections()
 
     names = [c.name for c in collections.collections]
 
     if settings.qdrant_collection not in names:
+
         await _client.create_collection(
             collection_name=settings.qdrant_collection,
             vectors_config=VectorParams(
