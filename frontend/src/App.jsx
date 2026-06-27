@@ -264,40 +264,42 @@ setMessages((prev) => [
     </div>
   )}
           {analysis?.length > 0 && (
-        <div className="analysisCard">
-    <ReactMarkdown
-      remarkPlugins={[remarkGfm]}
-      rehypePlugins={[rehypeRaw]}
-    >
-      {analysis && (
-  <div className="suggestions">
-
-    <h3>💡 Suggested Questions</h3>
-
-    <div className="suggestionGrid">
-
-      <button onClick={() => setQuery("Explain the overall architecture")}>
-        Architecture
-      </button>
-
-      <button onClick={() => setQuery("Which file starts the application?")}>
-        Entry Point
-      </button>
-
-      <button onClick={() => setQuery("Explain authentication flow")}>
-        Authentication
-      </button>
-
-      <button onClick={() => setQuery("Explain API flow")}>
-        API Flow
-      </button>
-
+  <>
+    <div className="analysisCard">
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        rehypePlugins={[rehypeRaw]}
+      >
+        {analysis}
+      </ReactMarkdown>
     </div>
 
-  </div>
-)}
-    </ReactMarkdown>
-  </div>
+    <div className="suggestions">
+
+      <h3>💡 Suggested Questions</h3>
+
+      <div className="suggestionGrid">
+
+        <button onClick={() => setQuery("Explain the overall architecture")}>
+          Architecture
+        </button>
+
+        <button onClick={() => setQuery("Which file starts the application?")}>
+          Entry Point
+        </button>
+
+        <button onClick={() => setQuery("Explain authentication flow")}>
+          Authentication
+        </button>
+
+        <button onClick={() => setQuery("Explain API flow")}>
+          API Flow
+        </button>
+
+      </div>
+
+    </div>
+  </>
 )}
           {messages.map((msg, i) => (
             <div
