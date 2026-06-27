@@ -1,31 +1,27 @@
-from sentence_transformers import SentenceTransformer
+from google import genai
 
-_model = None
+from app.config import get_settings
 
+settings = get_settings()
 
-def get_embedding_model() -> SentenceTransformer:
-    """
-    Singleton model.
-    Model sirf ek baar RAM me load hoga.
-    """
-    global _model
-
-    if _model is None:
-        _model = SentenceTransformer("all-MiniLM-L6-v2")
-
-    return _model
+client = genai.Client(
+    api_key=settings.gemini_api_key,
+)
 
 
 async def embed_texts(texts: list[str]) -> list[list[float]]:
     """
-    Generate embeddings for a list of texts.
+    Generate embeddings using Gemini.
     """
-    model = get_embedding_model()
 
-    embeddings = model.encode(
-        texts,
-        convert_to_numpy=True,
-        normalize_embeddings=True,
-    )
+    embeddings = []
 
-    return embeddings.tolist()
+    for text in texts:
+        response = client.models.embed_content(
+            model="gemini-embedding-001",
+            contents=text,
+        )
+
+        embeddings.append(response.embeddings[0].values)
+
+    return embeddings
