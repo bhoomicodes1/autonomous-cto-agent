@@ -1,0 +1,28 @@
+.fileTree{
+    width:100%;
+    max-height:400px;
+    overflow-y:auto;
+    overflow-x:hidden;
+    background:#1d2f58;
+    border-radius:20px;
+    padding:20px;
+    color:white;
+}
+.fileTree div{
+    word-break:break-word;
+}
+
+.treeFolder{
+    cursor:pointer;
+    margin:6px 0;
+    font-weight:bold;
+}
+
+.treeFolder:hover{
+    color:#6db8ff;
+}
+
+.treeFile{
+    margin:5px 0;
+    color:#d7d7d7;
+}

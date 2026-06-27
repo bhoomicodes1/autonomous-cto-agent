@@ -1,0 +1,707 @@
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.app{
+  overflow-x: hidden;
+}
+
+.glass{
+  overflow-x: hidden;
+}
+
+.chatWindow{
+  overflow-x: hidden;
+}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,sans-serif;
+}
+
+body{
+
+background:#06111f;
+
+background-image:
+radial-gradient(circle at top,#1f2d52 0%,transparent 45%),
+linear-gradient(#06111f,#030812);
+
+height:100vh;
+
+color:white;
+
+}
+
+.app{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+height:100vh;
+
+padding:35px;
+
+}
+
+.glass{
+
+width:100%;
+
+max-width:1200px;
+
+height:90vh;
+
+display:flex;
+
+flex-direction:column;
+
+background:rgba(20,30,50,.72);
+
+backdrop-filter:blur(22px);
+
+border-radius:25px;
+
+border:1px solid rgba(255,255,255,.08);
+
+overflow:hidden;
+
+box-shadow:
+
+0 20px 80px rgba(0,0,0,.45);
+
+}
+
+.header{
+
+padding:45px 40px 25px;
+
+text-align:center;
+
+border-bottom:1px solid rgba(255,255,255,.06);
+
+flex-shrink:0;
+
+overflow:visible;
+
+}
+
+.header h1{
+
+font-size:58px;
+
+font-weight:800;
+
+line-height:1.2;
+
+padding:10px 0;
+
+background:linear-gradient(
+90deg,
+#67e8f9,
+#60a5fa,
+#8b5cf6
+);
+
+-webkit-background-clip:text;
+background-clip:text;
+-webkit-text-fill-color:transparent;
+
+margin:0;
+
+overflow:visible;
+
+}
+
+.header p{
+
+margin-top:12px;
+
+font-size:18px;
+
+color:#94a3b8;
+
+}
+
+.chatWindow{
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+.healthCard h2{
+  text-align:center;
+  margin-bottom:10px;
+}
+
+.healthCard h3{
+  text-align:center;
+  margin-bottom:18px;
+}
+
+
+
+.fileTree{
+  width:100%;
+  overflow-x:auto;
+  background:#1f2f54;
+  border-radius:18px;
+  padding:20px;
+}
+
+.fileTree h2{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.assistant{
+  max-width:80%;
+  padding:18px;
+  border-radius:18px;
+  line-height:1.7;
+}
+
+.user{
+  align-self:flex-end;
+  background:#3b82f6;
+  color:white;
+}
+
+.assistant{
+  align-self:flex-start;
+  background:#22345c;
+  color:white;
+}
+
+
+
+.inputBar{
+
+display:flex;
+
+gap:15px;
+
+padding:25px;
+
+border-top:1px solid rgba(255,255,255,.06);
+
+}
+
+.inputBar input{
+
+flex:1;
+
+padding:18px;
+
+background:#0f172a;
+
+border:none;
+
+outline:none;
+
+border-radius:15px;
+
+font-size:16px;
+
+color:white;
+
+}
+
+.inputBar button{
+
+padding:18px 32px;
+
+border:none;
+
+border-radius:15px;
+
+background:linear-gradient(135deg,#2563eb,#7c3aed);
+
+color:white;
+
+font-size:16px;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.inputBar button:hover{
+
+transform:translateY(-2px);
+
+box-shadow:
+
+0 15px 30px rgba(99,102,241,.4);
+
+}
+
+.assistant h1,
+.assistant h2,
+.assistant h3{
+
+margin-bottom:15px;
+
+}
+
+.assistant p{
+
+margin-bottom:14px;
+
+}
+
+.assistant ul{
+
+margin-left:25px;
+
+margin-bottom:15px;
+
+}
+
+.assistant code{
+
+background:#0f172a;
+
+padding:3px 7px;
+
+border-radius:6px;
+
+}
+
+.assistant pre{
+
+background:#020617;
+
+padding:18px;
+
+border-radius:12px;
+
+overflow:auto;
+
+margin:16px 0;
+
+}
+pre {
+  background: #0f172a;
+  color: #f8fafc;
+  padding: 18px;
+  border-radius: 12px;
+  overflow-x: auto;
+  margin: 16px 0;
+}
+
+code {
+  font-family: "JetBrains Mono", monospace;
+  color: #7dd3fc;
+}
+
+pre code {
+  color: #f8fafc;
+}
+
+.md-h1{
+    font-size:32px;
+    margin:20px 0;
+    color:#60a5fa;
+}
+
+.md-h2{
+    font-size:24px;
+    margin-top:25px;
+    color:#8b5cf6;
+}
+
+.md-h3{
+    font-size:20px;
+    margin-top:20px;
+    color:#38bdf8;
+}
+
+.md-p{
+    line-height:1.8;
+    color:#f3f4f6;
+}
+
+.md-ul,
+.md-ol{
+    padding-left:25px;
+    line-height:1.8;
+}
+
+.md-quote{
+    border-left:4px solid #60a5fa;
+    padding-left:15px;
+    color:#d1d5db;
+    margin:15px 0;
+}
+
+.md-table{
+    width:100%;
+    border-collapse:collapse;
+    margin:20px 0;
+}
+
+.md-table td,
+.md-table th{
+    border:1px solid #334155;
+    padding:10px;
+}
+
+code{
+    background:#111827;
+    padding:3px 6px;
+    border-radius:6px;
+}
+
+pre{
+    border-radius:14px;
+    overflow:auto;
+}
+
+.repoBox{
+
+display:flex;
+
+gap:15px;
+
+justify-content:center;
+
+margin-top:30px;
+
+flex-wrap:wrap;
+
+}
+
+.repoBox input{
+
+width:250px;
+
+padding:14px;
+
+border-radius:12px;
+
+border:none;
+
+background:#15254a;
+
+color:white;
+
+font-size:15px;
+
+outline:none;
+
+}
+
+.repoBox button{
+
+padding:14px 22px;
+
+border:none;
+
+border-radius:12px;
+
+background:linear-gradient(90deg,#3b82f6,#7c3aed);
+
+color:white;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.repoBox button:hover{
+
+transform:translateY(-2px);
+
+box-shadow:0 0 20px #4f8cff;
+
+}
+.repoCard{
+
+width:92%;
+margin:25px auto;
+
+padding:25px;
+
+background:rgba(255,255,255,.05);
+
+border:1px solid rgba(255,255,255,.1);
+
+border-radius:20px;
+
+display:flex;
+
+gap:15px;
+
+align-items:center;
+
+justify-content:center;
+
+backdrop-filter:blur(18px);
+
+}
+
+.repoCard input{
+
+width:260px;
+
+padding:14px;
+
+border:none;
+
+border-radius:12px;
+
+background:#10192d;
+
+color:white;
+
+font-size:16px;
+
+}
+
+.repoCard button{
+
+padding:14px 28px;
+
+border:none;
+
+border-radius:12px;
+
+cursor:pointer;
+
+background:linear-gradient(
+135deg,
+#4F8CFF,
+#7C4DFF
+);
+
+color:white;
+
+font-weight:700;
+
+font-size:15px;
+
+}
+
+.analysisCard{
+
+width:92%;
+
+margin:25px auto;
+
+padding:30px;
+
+border-radius:24px;
+
+background:#142240;
+
+border:1px solid rgba(255,255,255,.08);
+
+box-shadow:
+0 0 30px rgba(80,120,255,.25);
+
+}
+
+.md-h1{
+    color:#4ade80;
+    margin-top:25px;
+}
+
+.md-h2{
+    color:#60a5fa;
+}
+
+.md-h3{
+    color:#facc15;
+}
+
+.md-p{
+    line-height:1.8;
+}
+
+.md-ul{
+    margin-left:25px;
+}
+.filesCard {
+  margin: 20px 0;
+  padding: 20px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.05);
+}
+
+.fileList {
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.fileItem {
+  padding: 8px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  font-family: monospace;
+}
+
+/* ===========================
+   Repository Health
+=========================== */
+
+.healthCard {
+  margin: 20px 0;
+  padding: 22px;
+  border-radius: 18px;
+  background: rgba(25, 37, 73, 0.9);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+}
+
+.healthCard h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #6fd3ff;
+  font-size: 28px;
+}
+
+.healthCard h3 {
+  text-align: center;
+  margin-bottom: 22px;
+  color: #ffffff;
+  font-size: 22px;
+}
+
+.healthGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+  gap: 15px;
+}
+
+.healthItem {
+  padding: 14px;
+  text-align: center;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.05);
+  color: white;
+  font-weight: 600;
+  transition: 0.25s;
+}
+
+.healthItem:hover {
+  transform: translateY(-3px);
+  background: rgba(80,120,255,0.18);
+}
+.react-flow{
+    background:#18284b;
+    border-radius:20px;
+}
+
+
+
+.suggestionBtn{
+    background:#15264f;
+    border:none;
+    color:white;
+    padding:16px;
+    border-radius:12px;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.suggestionBtn:hover{
+    transform:translateY(-3px);
+    background:#3b5bdb;
+}
+
+
+.statCard h3{
+    margin-bottom:8px;
+}
+
+
+.repoStats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:15px;
+    margin:20px 0;
+}
+
+.statCard{
+    background:#182a55;
+    border-radius:14px;
+    padding:16px;
+    text-align:center;
+}
+
+.suggestions{
+    margin:20px;
+}
+
+.suggestionGrid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.suggestionGrid button{
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:#253b72;
+    color:white;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.suggestionGrid button:hover{
+    background:#4f46e5;
+}
+
+.thinking{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    padding:20px;
+    font-weight:600;
+}
+.chatWindow::-webkit-scrollbar{
+    width:8px;
+}
+
+.chatWindow::-webkit-scrollbar-thumb{
+    background:#3b82f6;
+    border-radius:10px;
+}
+
+.chatWindow::-webkit-scrollbar-track{
+    background:#0f172a;
+}
+
+.repoBox input:focus{
+    border:1px solid #60a5fa;
+    box-shadow:0 0 15px rgba(96,165,250,.35);
+}
+
+button:disabled{
+    opacity:.7;
+    cursor:not-allowed;
+}
+
+.statCard:hover,
+.healthItem:hover,
+.suggestionGrid button:hover{
+    transform:translateY(-4px);
+    transition:.25s;
+}

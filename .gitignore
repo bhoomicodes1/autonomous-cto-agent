@@ -1,0 +1,76 @@
+# ==========================
+# Python
+# ==========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Virtual Environment
+.venv/
+venv/
+env/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# ==========================
+# Node / React
+# ==========================
+node_modules/
+dist/
+dist-ssr/
+coverage/
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ==========================
+# VS Code / IDE
+# ==========================
+.vscode/
+!.vscode/extensions.json
+.idea/
+
+# ==========================
+# OS Files
+# ==========================
+.DS_Store
+Thumbs.db
+
+# ==========================
+# Logs
+# ==========================
+logs/
+*.log
+
+# ==========================
+# Docker
+# ==========================
+*.pid
+
+# ==========================
+# Build
+# ==========================
+build/
+.cache/
+
+# ==========================
+# Qdrant Storage (Don't Commit)
+# ==========================
+storage/
+
+# ==========================
+# Database
+# ==========================
+*.db
