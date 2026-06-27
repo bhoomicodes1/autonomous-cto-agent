@@ -1,25 +1,24 @@
 from uuid import uuid4
 
-from qdrant_client import AsyncQdrantClient
 from qdrant_client.http.models import (
-    VectorParams,
     Distance,
+    FieldCondition,
+    Filter,
+    MatchValue,
     PointStruct,
+    VectorParams,
 )
 
 from app.config import get_settings
+from app.db.qdrant import get_qdrant_client
 
 settings = get_settings()
-
-client = AsyncQdrantClient(
-    host=settings.qdrant_host,
-    port=settings.qdrant_port,
-)
 
 COLLECTION_NAME = "architecture_docs"
 
 
 async def create_collection():
+    client = await get_qdrant_client()
 
     collections = await client.get_collections()
 
@@ -50,12 +49,12 @@ async def store_chunks(
     owner,
     repo,
 ):
+    client = await get_qdrant_client()
+
     print("🚀 store_chunks() called")
     print("Owner:", owner)
     print("Repo:", repo)
-    print("Chunks:", len(chunks))
-    print("Embeddings:", len(embeddings))
-    
+
     points = []
 
     for chunk, embedding in zip(chunks, embeddings):
@@ -69,7 +68,7 @@ async def store_chunks(
                     "repo": repo,
                     "owner": owner,
                     **chunk["metadata"],
-                }
+                },
             )
         )
 
@@ -78,25 +77,20 @@ async def store_chunks(
         points=points,
     )
 
-    print(f"✅ Stored {len(points)} vectors in Qdrant")
- 
     count = await client.count(
-    collection_name=COLLECTION_NAME,
+        collection_name=COLLECTION_NAME,
     )
 
-    print("Total vectors in Qdrant:", count.count)
-    
-from qdrant_client.http.models import (
-    Filter,
-    FieldCondition,
-    MatchValue,
-)
+    print(f"✅ Stored {len(points)} vectors")
+    print("Total vectors:", count.count)
 
 
 async def repository_exists(
     owner: str,
     repo: str,
 ) -> bool:
+
+    client = await get_qdrant_client()
 
     response = await client.scroll(
         collection_name=COLLECTION_NAME,
