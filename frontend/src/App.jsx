@@ -193,7 +193,7 @@ setMessages((prev) => [
 
         <div className="statCard">
           <h3>🧠 Embeddings</h3>
-          <p>MiniLM-L6-v2</p>
+          <p>Gemini Embedding 001</p>
         </div>
 
         <div className="statCard">
@@ -269,8 +269,19 @@ setMessages((prev) => [
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw]}
-      >
-        {analysis}
+        components={{
+          h1: ({ children }) => <h1 className="md-h1">{children}</h1>,
+          h2: ({ children }) => <h2 className="md-h2">{children}</h2>,
+          h3: ({ children }) => <h3 className="md-h3">{children}</h3>,
+          p: ({ children }) => <p className="md-p">{children}</p>,
+          li: ({ children }) => <li className="md-li">{children}</li>,
+          code: ({ children }) => <code className="md-code">{children}</code>,
+          pre: ({ children }) => <pre className="md-pre">{children}</pre>,
+        }}
+    >
+      {analysis
+        ?.replace(/^#?\s*Repository Health[\s\S]*?(?=^#|✅)/im, "")
+        ?.trim()}
       </ReactMarkdown>
     </div>
 
