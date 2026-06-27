@@ -1,5 +1,9 @@
 from qdrant_client import AsyncQdrantClient
-from qdrant_client.models import Distance, VectorParams
+from qdrant_client.models import (
+    Distance,
+    VectorParams,
+    PayloadSchemaType,
+)
 
 from app.config import Settings
 
@@ -13,6 +17,7 @@ async def init_qdrant(settings: Settings):
     - Local Docker
     - Qdrant Cloud
     """
+
     global _client
 
     # ----------------------------
@@ -36,9 +41,9 @@ async def init_qdrant(settings: Settings):
         )
 
     collections = await _client.get_collections()
-
     names = [c.name for c in collections.collections]
 
+    # Create collection if it doesn't exist
     if settings.qdrant_collection not in names:
 
         await _client.create_collection(
@@ -50,6 +55,29 @@ async def init_qdrant(settings: Settings):
         )
 
         print("✅ Qdrant collection created")
+
+    # ----------------------------
+    # Ensure payload indexes exist
+    # ----------------------------
+    try:
+        await _client.create_payload_index(
+            collection_name=settings.qdrant_collection,
+            field_name="owner",
+            field_schema=PayloadSchemaType.KEYWORD,
+        )
+    except Exception:
+        pass
+
+    try:
+        await _client.create_payload_index(
+            collection_name=settings.qdrant_collection,
+            field_name="repo",
+            field_schema=PayloadSchemaType.KEYWORD,
+        )
+    except Exception:
+        pass
+
+    print("✅ Qdrant indexes ready")
 
 
 async def get_qdrant_client() -> AsyncQdrantClient:
