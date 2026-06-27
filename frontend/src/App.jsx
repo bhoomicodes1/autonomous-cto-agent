@@ -277,10 +277,11 @@ setMessages((prev) => [
           li: ({ children }) => <li className="md-li">{children}</li>,
           code: ({ children }) => <code className="md-code">{children}</code>,
           pre: ({ children }) => <pre className="md-pre">{children}</pre>,
-        }}
+      }}
     >
       {analysis
-        ?.replace(/^#?\s*Repository Health[\s\S]*?(?=^#|✅)/im, "")
+        ?.replace(/📊 Repository Health Score[\s\S]*?📌 Summary/i, "📌 Summary")
+        ?.replace(/💡 Suggested Questions[\s\S]*/i, "")
         ?.trim()}
       </ReactMarkdown>
     </div>
