@@ -2,6 +2,7 @@ from google import genai
 
 from app.config import get_settings
 from app.core.prompts.cto_prompt import SYSTEM_PROMPT
+from app.core.prompts.analysis_prompt import ANALYSIS_PROMPT
 
 settings = get_settings()
 
@@ -10,23 +11,41 @@ client = genai.Client(
 )
 
 
-async def ask_llm(question: str, context: str) -> str:
-    """
-    Send retrieved context + user question to Gemini.
-    """
+async def ask_llm(
+    question: str,
+    context: str,
+    mode: str = "chat",
+) -> str:
+
+    if mode == "analysis":
+        instruction = ANALYSIS_PROMPT
+    else:
+        instruction = SYSTEM_PROMPT
 
     prompt = f"""
-{SYSTEM_PROMPT}
+{instruction}
 
-Retrieved Context:
+Repository Context
+
 {context}
 
-User Question:
-{question}
+Task
 
-Answer only using the retrieved context.
-If the answer is not present, say:
-"I couldn't find that information in the provided documents."
+Generate a professional software architecture report.
+
+Rules
+
+- Use ONLY the repository context.
+- Never invent files.
+- Never output Sources.
+- Never output Repository Health.
+- Never output Suggested Questions.
+- Never output Interview Questions.
+- Never output Prompt files.
+- Never mention analysis_prompt.py.
+- Never mention cto_prompt.py.
+- Never mention frontend/App.jsx unless essential.
+- If details are missing, infer reasonable architecture decisions instead of saying "Not enough information."
 """
 
     response = client.models.generate_content(

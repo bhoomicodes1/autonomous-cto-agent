@@ -10,12 +10,18 @@ from app.db.qdrant import get_qdrant_client
 
 settings = get_settings()
 
+IGNORE_FILES = {
+    "backend/app/core/prompts/cto_prompt.py",
+    "backend/app/core/prompts/analysis_prompt.py",
+    "frontend/src/App.jsx",
+    "frontend/src/App.css",
+}
 
 async def retrieve(
     query: str,
     owner: str,
     repo: str,
-    limit: int = 12,   # Increased from 5
+    limit: int = 6,   # Increased from 5
 ):
     embedding = (await embed_texts([query]))[0]
 
@@ -44,19 +50,23 @@ async def retrieve(
 
     for point in results.points:
 
-        # Ignore weak matches
-        if point.score < 0.45:
+        if point.score < 0.60:
             continue
 
         payload = point.payload or {}
+
+        file = payload.get("doc_id", "")
+
+        if file in IGNORE_FILES:
+            continue
 
         output.append(
             {
                 "text": payload.get("text", ""),
                 "score": point.score,
-                "doc_id": payload.get("doc_id"),
+                "doc_id": file,
                 "chunk_index": payload.get("chunk_index"),
-                "file": payload.get("doc_id"),
+                "file": file,
             }
         )
 

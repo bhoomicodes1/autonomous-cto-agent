@@ -24,23 +24,39 @@ async def analyze_repo(
     Analyze the already-ingested repository using Qdrant.
     """
 
-    query = f"""
-Analyze the architecture of the GitHub repository {owner}/{repo}.
+    query = """
+Analyze THIS repository only.
 
-Explain:
+Return EXACTLY these sections in markdown:
 
-- Project Summary
-- Architecture
-- Tech Stack
-- Folder Structure
-- Important Files
-- Code Flow
-- Features
-- Technical Debt
-- Scalability
-- Security
-- CTO Recommendations
-- Interview Questions
+# Executive Summary
+
+# Architecture
+
+# Tech Stack
+
+# Important Components
+
+# Code Flow
+
+# Security
+
+# Scalability
+
+# Technical Debt
+
+# CTO Recommendations
+
+Rules:
+
+- Maximum 500 words.
+- Use markdown headings.
+- Do NOT generate Repository Health.
+- Do NOT generate Interview Questions.
+- Do NOT generate Suggested Questions.
+- Do NOT describe the frontend UI.
+- Never repeat information.
+- Mention actual filenames whenever possible.
 """
 
     indexed = await repository_exists(

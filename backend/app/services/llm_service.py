@@ -20,36 +20,24 @@ async def ask_llm(
     mode: str = "chat",
 ) -> str:
 
-    if mode == "analysis":
-
-        system_prompt = ANALYSIS_PROMPT
-
-    else:
-
-        system_prompt = SYSTEM_PROMPT
+    instruction = ANALYSIS_PROMPT if mode == "analysis" else SYSTEM_PROMPT
 
     prompt = f"""
-{system_prompt}
+{instruction}
 
-==========================
-REPOSITORY CONTEXT
-==========================
+Repository Context:
 
 {context}
 
-==========================
-USER QUESTION
-==========================
+Repository Analysis Request
 
-{question}
+Generate the requested report from the repository context.
 
 IMPORTANT:
 
-- Use ONLY the repository context above.
-- If the answer is not present in the context, say:
-  "The retrieved repository context does not contain enough information."
-- Mention relevant file names whenever possible.
-- Never answer using general FastAPI, Python, or programming knowledge if the context already contains the answer.
+- Use ONLY repository context.
+- Never invent filenames.
+- If information is missing, clearly say so.
 """
 
     for attempt in range(3):

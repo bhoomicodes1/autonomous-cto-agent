@@ -3,6 +3,7 @@ from google import genai
 from app.config import get_settings
 
 settings = get_settings()
+print("Gemini key starts with:", settings.gemini_api_key[:10])
 
 client = genai.Client(
     api_key=settings.gemini_api_key,

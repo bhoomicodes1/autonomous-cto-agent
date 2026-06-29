@@ -280,10 +280,13 @@ setMessages((prev) => [
       }}
     >
       {analysis
-        ?.replace(/📊 Repository Health Score[\s\S]*?📌 Summary/i, "📌 Summary")
-        ?.replace(/Interview Questions[\s\S]*/i, "")
-        ?.replace(/💡 Suggested Questions[\s\S]*/i, "")
-        ?.trim()}
+        .replace(/📊 Repository Health Score[\s\S]*?📌 Summary/i,"📌 Summary")
+        .replace(/Repository Health[\s\S]*?(?=#|$)/i,"")
+        .replace(/Suggested Questions[\s\S]*/i,"")
+        .replace(/Interview Questions[\s\S]*/i,"")
+        .replace(/Sources[\s\S]*/i,"")
+        .trim()
+    }
       </ReactMarkdown>
     </div>
 
