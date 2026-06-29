@@ -517,6 +517,13 @@ box-shadow:
 0 0 30px rgba(80,120,255,.25);
 
 }
+.analysisCard code{
+    font-size:12px;
+    padding:2px 6px;
+    border-radius:6px;
+    background:#17233d;
+    color:#7fd4ff;
+}
 
 .md-h1{
     color:#4ade80;

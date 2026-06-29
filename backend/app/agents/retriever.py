@@ -26,7 +26,10 @@ SIMILARITY: {chunk['score']:.3f}
 """
         )
 
-    context = "\n\n".join(context_parts)
+    context = "\n\n".join(
+    c["text"][:1200]
+    for c in chunks
+)
 
     return {
         "chunks": chunks,

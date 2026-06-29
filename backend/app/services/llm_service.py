@@ -35,9 +35,31 @@ Generate the requested report from the repository context.
 
 IMPORTANT:
 
-- Use ONLY repository context.
-- Never invent filenames.
-- If information is missing, clearly say so.
+Use ONLY the retrieved repository context.
+
+Do not quote code.
+
+Do not explain function implementations.
+
+Do not copy code snippets.
+
+Never output line-by-line execution.
+
+Summarize behaviour only.
+
+Mention only the most important files.
+
+Maximum 2-3 filenames per section.
+
+Keep the answer under 500 words.
+
+Do not generate:
+- Sources
+- Repository Health
+- Suggested Questions
+- Interview Questions
+
+If context is insufficient, say so instead of guessing.
 """
 
     for attempt in range(3):

@@ -29,23 +29,22 @@ Repository Context
 
 {context}
 
-Task
+User Request
 
-Generate a professional software architecture report.
+{question}
 
-Rules
+IMPORTANT
 
-- Use ONLY the repository context.
-- Never invent files.
-- Never output Sources.
-- Never output Repository Health.
-- Never output Suggested Questions.
-- Never output Interview Questions.
-- Never output Prompt files.
-- Never mention analysis_prompt.py.
-- Never mention cto_prompt.py.
-- Never mention frontend/App.jsx unless essential.
-- If details are missing, infer reasonable architecture decisions instead of saying "Not enough information."
+Never include function implementations.
+
+Never quote source code.
+
+Summarize implementation only.
+
+Maximum 2-3 filenames per section.
+
+Never generate Sources.
+Never generate Suggested Questions.
 """
 
     response = client.models.generate_content(

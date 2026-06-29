@@ -14,20 +14,19 @@ router = APIRouter(
     tags=["GitHub"],
 )
 
-
 @router.post("/analyze")
 async def analyze_repo(
     owner: str,
     repo: str,
 ):
     """
-    Analyze the already-ingested repository using Qdrant.
+    Analyze an indexed repository using RAG.
     """
 
     query = """
 Analyze THIS repository only.
 
-Return EXACTLY these sections in markdown:
+Return EXACTLY these sections:
 
 # Executive Summary
 
@@ -49,20 +48,21 @@ Return EXACTLY these sections in markdown:
 
 Rules:
 
+- Use markdown.
 - Maximum 500 words.
-- Use markdown headings.
-- Do NOT generate Repository Health.
-- Do NOT generate Interview Questions.
-- Do NOT generate Suggested Questions.
-- Do NOT describe the frontend UI.
-- Never repeat information.
-- Mention actual filenames whenever possible.
+- Mention filenames whenever possible.
+- Never invent files.
+- Never include Repository Health.
+- Never include Suggested Questions.
+- Never include Interview Questions.
+- Never include Sources.
+- Never quote source code.
+- Never include function implementations.
+- Summarize implementation only.
+- Focus on architecture and design.
 """
 
-    indexed = await repository_exists(
-        owner,
-        repo,
-)
+    indexed = await repository_exists(owner, repo)
 
     if not indexed:
 
@@ -71,39 +71,50 @@ Rules:
         await load_repository(
             owner,
             repo,
-    )
+        )
 
-    print("✅ Repository indexed successfully.")
-    print("🔍 Starting retrieval")
+    print("✅ Repository indexed.")
+    print("🔍 Retrieving context...")
+
     chunks = await retrieve(
-    query=query,
-    owner=owner,
-    repo=repo,
-    limit=25,
-)
-
-    context = "\n\n".join(
-        [
-            f"""
-FILE: {c['file']}
-CHUNK: {c['chunk_index']}
-
-{c['text']}
-"""
-            for c in chunks
-        ]
+        query=query,
+        owner=owner,
+        repo=repo,
+        limit=10,
     )
+
+    context = ""
+
+    for chunk in chunks:
+
+        context += f"""
+
+==================================================
+
+FILE:
+{chunk["file"]}
+
+CHUNK:
+{chunk["chunk_index"]}
+
+CONTENT:
+
+{chunk["text"][:700]}
+
+"""
+
     health = await calculate_health(owner, repo)
+
     answer = await ask_llm(
-    question=query,
-    context=context,
-    mode="analysis",
-)
+        question=query,
+        context=context,
+        mode="analysis",
+    )
 
     return {
-    "analysis": answer,
-    "health": health,
-}
+        "analysis": answer,
+        "health": health,
+    }
 
 
 @router.post("/files")

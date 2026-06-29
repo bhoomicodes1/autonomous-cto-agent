@@ -269,23 +269,17 @@ setMessages((prev) => [
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw]}
-        components={{
-          h1: ({ children }) => <h1 className="md-h1">{children}</h1>,
-          h2: ({ children }) => <h2 className="md-h2">{children}</h2>,
-          h3: ({ children }) => <h3 className="md-h3">{children}</h3>,
-          p: ({ children }) => <p className="md-p">{children}</p>,
-          li: ({ children }) => <li className="md-li">{children}</li>,
-          code: ({ children }) => <code className="md-code">{children}</code>,
-          pre: ({ children }) => <pre className="md-pre">{children}</pre>,
-      }}
-    >
-      {analysis
-        .replace(/📊 Repository Health Score[\s\S]*?📌 Summary/i,"📌 Summary")
-        .replace(/Repository Health[\s\S]*?(?=#|$)/i,"")
-        .replace(/Suggested Questions[\s\S]*/i,"")
-        .replace(/Interview Questions[\s\S]*/i,"")
-        .replace(/Sources[\s\S]*/i,"")
-        .trim()
+      >
+    {
+    analysis
+      .replace(/#\s*Executive Summary/gi,"# 📌 Summary")
+      .replace(/#\s*Repository Health[\s\S]*?(?=#|$)/gi,"")
+      .replace(/#\s*Sources[\s\S]*?(?=#|$)/gi,"")
+      .replace(/📚\s*Sources[\s\S]*/gi,"")
+      .replace(/#\s*Suggested Improvements[\s\S]*?(?=#|$)/gi,"")
+      .replace(/#\s*Suggested Questions[\s\S]*?(?=#|$)/gi,"")
+      .replace(/#\s*Interview Questions[\s\S]*?(?=#|$)/gi,"")
+      .trim()
     }
       </ReactMarkdown>
     </div>
