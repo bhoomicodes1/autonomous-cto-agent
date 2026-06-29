@@ -192,15 +192,6 @@ npm run dev
 
 ## 📸 Screenshots
 
-> Add screenshots of:
-
-- Home Page
-- Repository Analysis
-- AI Chat
-- Architecture Graph
-- Repository Health
-
----
 
 ## 🔮 Future Improvements
 
